@@ -12,6 +12,8 @@ var canvas, ctx,
     tr = 93, tg = 67, tb = 20,
     i;
 
+// General math functions //
+
 function floor(number) {
   return Math.floor(number);
 }
