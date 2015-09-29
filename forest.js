@@ -88,18 +88,11 @@ function Tree(x, y, w) {
   this.x = x;
   this.y = floor(y/8);
   this.dist = y/canvasHeight;
-  this.w = w-w*this.dist;
-  this.r = tr-tr*this.dist;
-  this.g = tg-tg*this.dist;
-  this.b = tb-tb*this.dist;
-  // setDistance("w", w);
-  // setDistance("r", tr);
-  // setDistance("g", tg);
-  // setDistance("b", tb);
+  this.setDistance("w", w);
+  this.setDistance("r", tr);
+  this.setDistance("g", tg);
+  this.setDistance("b", tb);
   this.color = getRGB(this.r, this.g, this.b);
-  this.get = function() {
-    return this.dist;
-  }
 }
 
 Tree.random = function() {
@@ -108,7 +101,7 @@ Tree.random = function() {
 
 Tree.prototype = {
   setDistance: function(attr, val) {
-    this["attr"] = val-val*this.dist;
+    this[attr] = val-val*this.dist;
   },
   draw: function(ctx) {
     ctx.fillStyle = this.color;
