@@ -10,6 +10,7 @@ var canvas, ctx,
     treeMinWidth = 20,
     treeMaxWidth = 30,
     tr = 93, tg = 67, tb = 20,
+    treeGradient,
     i;
 
 // General math functions //
@@ -126,7 +127,10 @@ Tree.prototype = {
     this[attr] = val-val*this.dist;
   },
   draw: function(ctx) {
-    ctx.fillStyle = this.color;
+    treeGradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+    treeGradient.addColorStop(this.dist*this.dist/1.5, fogColor);
+    treeGradient.addColorStop(1, this.color);
+    ctx.fillStyle = treeGradient;
     ctx.fillRect(this.x-20, 0, this.w, canvasHeight-this.y);
   }
 }
