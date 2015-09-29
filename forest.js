@@ -60,6 +60,18 @@ function mergeSort(items, attr){
   return items;
 }
 
+// Canvas Functions //
+
+function resetCanvas(ctx) {
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  bgGradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+  bgGradient.addColorStop(0.5, fogColor);
+  bgGradient.addColorStop(1, groundColor);
+  ctx.fillStyle = bgGradient;
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+}
+
+
 // Forest //
 
 var Forest = {
@@ -79,6 +91,16 @@ var Forest = {
     for (i=0; i<this.trees.length; i++) {
       this.trees[i].draw(ctx);
     }
+  },
+
+  create: function(ctx, num) {
+    this.populate(num);
+    this.order();
+    this.draw(ctx);
+  },
+
+  clear: function() {
+    this.trees = [];
   }
 }
 
@@ -115,13 +137,12 @@ window.onload = function() {
   canvas = document.getElementById("forest");
   ctx = canvas.getContext("2d");
 
-  bgGradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-  bgGradient.addColorStop(0.5, fogColor);
-  bgGradient.addColorStop(1, groundColor);
-  ctx.fillStyle = bgGradient;
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  resetCanvas(ctx);
+  Forest.create(ctx, 20);
 
-  Forest.populate(20);
-  Forest.order();
-  Forest.draw(ctx);
+  canvas.addEventListener("click", function() {
+    resetCanvas(ctx);
+    Forest.clear();
+    Forest.create(ctx, 20);
+  });
 };
